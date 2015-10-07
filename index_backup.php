@@ -7,7 +7,6 @@ $con=mysqli_connect("db536766613.db.1and1.com","dbo536766613","IMCsql!s05","db53
 $special1 = '<a href="#" onclick="ga(\'send\', \'event\', \'Special Offer\', \'Click SO1\', document.getElementById(\'uname\').value)">Special Book!(tagged)</a>';
 $special2 = '<a href="#" onclick="ga(\'send\', \'event\', \'Special Offer\', \'Click SO2\', document.getElementById(\'uname\').value)">Free Shipping! Surprise!(tagged)</a>';
 $special3 = '<a href="#" onclick="ga(\'send\', \'event\', \'Special Offer\', \'Click SO3\', document.getElementById(\'uname\').value)">Buy one & get the other at half price!!!(tagged)</a>';
-$special4 = '<a href="#" onclick="ga(\'send\', \'event\', \'Special Offer\', \'Click SO4\', document.getElementById(\'uname\').value)">Survey for your favourite genre(tagged)</a>';
 
 
 // Check Database connection, if there is error then echo failure message.
@@ -45,8 +44,7 @@ if(isset($_POST['name'])) {
 			 $PurchaseNum = $row[PurchNum];
 			 $PurchaseTot = $row[PurchTot];
 			 $PurchaseDays = $row[Purchdays];
-			 //Propensity model
-			 $MYSCORE = 0.248 + 0.014 * $VD + 0.029 * $PurchaseDays + 0.112 * $PurchaseNum;
+			 $MYSCORE = $PurchaseTot;
 			 
 		    }
 		  
@@ -505,21 +503,11 @@ if($n > 4){ ?>
 	</div>
 	<?php } else{?>
 		 <div id="four" style="padding:10px;">
-		 <?php if ($SCORE < 75) {
-					echo $special1;
-				}
-			    else{
-						if ($CARTCOUNT > 1) {
-							echo $special3;
-						}
-						else{if($MYSCORE > 0.5){
-									echo $special2;
-							}
-							else {
-								echo $special4;
-							}
-						}
-				}?>
+		<?php if ($SCORE < 75) {echo $special1;}
+		else{
+			if ($MYSCORE > 7.8) {echo $special2;}
+			else {echo $special3;}
+			}?>
 	<?php }?>
 			</div>
 </section>
